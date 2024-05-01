@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <IRremote.hpp>
 
+// update pin number as per your ESP32 board
 #define IR_RECEIVE_PIN 15 // D15
 
 void setup()

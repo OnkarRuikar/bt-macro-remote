@@ -1,8 +1,8 @@
 # Bluetooth macro remote
 
-The project builds a remote control that can send media key inputs and run macros on computer. This is similar to macro keyboard / macroboard. Instead of keyboard we are going to use a remote control.
+The project builds a remote control that can send media key inputs and run macros on computer. This is similar to macro keyboard / macroboard. Instead of keyboard we are going to use a remote control. The device can be assembled without doing soldering.
 
-The media keys work on any device that accepts Bluetooth HIDs. **
+The media keys work on any device that accepts Bluetooth HIDs: **
 
 - Computer (with Bluetooth on motherboard or dongle)
 - Smart phones
@@ -17,7 +17,7 @@ This is how the final device looks:
 
 ## 1. Required components
 
-You can buy these from any local electronic components' shop or website:
+You can buy these from any local electronic components shop or website:
 
 1. [ESP32 development board](https://www.amazon.com/DORHEA-Development-Bluetooth-ESP-WROOM-32-ESP32-DevKitC-32/dp/B0B18JQF16) - $6
 
@@ -66,18 +66,43 @@ Perform following steps to get started:
    - macOS: Run `ls /dev/tty*` in a terminal before and after plugging the ESP32.
    - linux: Run `ls /dev/ttyUSB*` in terminal before and after plugging the ESP32. To get access to the USB port refer [this StackOverflow thread](https://askubuntu.com/questions/112568/how-do-i-allow-a-non-default-user-to-use-serial-device-ttyusb0).
 5. In file `bt-esp32-keyboard/platformio.ini` update `monitor_port` value and if you face any issues then update `board` value.
-6. Mostly `esp32dev` as the board name should work. If it doesn't work then get the name from the product page on seller's website.
-7. Open VSCode IDE then click on PlatformIO logo on left bar. Select pick a folder and open the `bt-esp32-keyboard` folder in the IDE. The IDE will install required libraries.
 
-### Get key codes on remote control
+   - Mostly `esp32dev` as the `board` name should work. If it doesn't work then get the name from the product page on seller's website.
+6. Open VSCode IDE then click on PlatformIO logo on left bar. Select pick a folder and open the `bt-esp32-keyboard` folder in the IDE. The IDE will install required libraries.
 
-Backup the code in `main.cpp`. Then put code in [log_remote_keys.txt](./bt-esp32-keyboard/src/log_remote_keys.txt) in `main.cpp` file and upload the compiled code to the ESP32. Monitor serial logs in the IDE and press all the keys on the remote one by one. Note down all the key codes.
+## 3. Assembling the RF receiver
+
+The remote control is the RF signal sender and ESP32 with the tree pin module is the receiver part. Now let's assemble the receiver part.
+
+For the ESP32 dev board, shown above, following is the pinout diagram:
+
+![pinout](./assets/ESP32-pinout.png)
+
+If you have bought different ESP32 module then get the pinout from the seller or from internet.
+
+We want to connect the RF receiver to ESP32 as shown in following diagram:
+
+![connection](./assets/connection-diagram.png)
+
+Use the three [female-to-female jumper cables](https://www.amazon.com/Antrader-Breadboard-Dupont-Arduino-Raspberry/dp/B07S2RH6Q4) to connect the RF receiver to ESP32. The jumper cables come along with the IR remote module so no need to buy them separately.
+
+ESP32 to RF receiver connections are as follows:
+
+1. GND pin to `-` pin
+2. D15 (GPIO15) pin to `S` pin
+3. 3.3v pin to the remaining (middle) pin `+`
+
+The LED that came with the remote module is not required because we are using the builtin LED on the ESP32 board which is accessed using pin 2.
+
+### Get remote control key codes
+
+Backup the code in `main.cpp`. Then put code from [log_remote_key_codes.txt](./bt-esp32-keyboard/src/log_remote_key_codes.txt) file into `main.cpp` file and upload the compiled code to the ESP32. Monitor serial logs in the IDE and press all the keys on the remote one by one. Note down all the key codes.
 
 Restore code in `main.cpp`.
 
-### Key codes functions
+### Key code functions
 
-In `main.cpp` update remote control key codes if they are different. You can also update media keys in `bleKeyboard.write(...)` statements. Following keys are available:
+In `main.cpp` update remote control key codes if they are different. You can also update media keys in `bleKeyboard.write(...)` statements as per your requirements. Following keys are available:
 
 - KEY_MEDIA_NEXT_TRACK
 - KEY_MEDIA_PREVIOUS_TRACK
@@ -98,31 +123,7 @@ In `main.cpp` update remote control key codes if they are different. You can als
 
 In the code, remaining numbered keys on the remote have been assigned to keyboard key combinations from `ctrl + shift + F1` to `ctrl + shift + F11`. These key combinations are to be assigned to macros on computer.
 
-Compile and upload the `main.cpp` to ESP32. Now we have programmed the ESP32. Disconnect ESP 32 from the computer.
-
-## 3. Assembling the RF receiver
-
-The remote control is the RF signal sender and ESP32 with the tree pin module is the receiver part. Now let's assemble the receiver part.
-
-For the ESP32 dev board mentioned above following is the pinout diagram:
-
-![pinout](./assets/ESP32-pinout.png)
-
-If you have bought different ESP32 module then get the pinout from the seller or from internet.
-
-We want to connect the RF receiver to ESP32 as shown in following diagram:
-
-![connection](./assets/connection-diagram.png)
-
-Use the three [female-to-female jumper cables](https://www.amazon.com/Antrader-Breadboard-Dupont-Arduino-Raspberry/dp/B07S2RH6Q4) to connect the RF receiver to ESP32. The jumper cables come along with the IR remote module so no need to buy them separately.
-
-ESP32 to RF receiver connections are as follows:
-
-1. GND pin to `-` pin
-2. D15 (GPIO15) pin to `S` pin
-3. 3.3v pin to the remaining (middle) pin `+`
-
-The LED that came with the remote module is not required because we are using the builtin LED on the ESP32 board which is accessed using pin 2.
+Update `IR_RECEIVE_PIN` pin number if you have different ESP32 device. Now compile and upload the `main.cpp` to ESP32. Now we have programmed the ESP32. Disconnect ESP 32 from the computer.
 
 ## 4. Connect to PC
 
@@ -134,13 +135,13 @@ Play any media on the PC and try the arrow buttons on the remote control.
 
 ### Windows
 
-Install [AutoHotkey](https://www.autohotkey.com/) free software. Edit `macros/win-autohotkey-macros.ahk` file and update/add keyboard shortcuts and commands.
+Install [AutoHotkey](https://www.autohotkey.com/) free software. Edit [macros/win-autohotkey-macros.ahk](macros/win-autohotkey-macros.ahk) file and update/add keyboard shortcuts and commands.
 
 Refer the [How to Launch AutoHotkey Scripts At Startup (4k)](https://www.youtube.com/watch?v=qo3XIAbHbCo) video to load the `.ahk` file on the computer startup.
 
 ### Linux
 
-Install [Xbindkeys](https://wiki.archlinux.org/title/Xbindkeys). Edit `macros/.xbindkeysrc` file and put the macro code in `~/.xbindkeysrc`. Run following commands to update the configuration:
+Install [Xbindkeys](https://wiki.archlinux.org/title/Xbindkeys). Edit [macros/.xbindkeysrc](macros/.xbindkeysrc) file and put the macro code in `~/.xbindkeysrc`. Run following commands to update the configuration:
 
 ```bash
 killall xbindkeys
@@ -168,8 +169,10 @@ Now test all the numbered buttons on the remote. Except the shutdown button :D.
 
 ### Enclosure
 
-Put the ESP32 receiver in any small enclosure. If the enclosure is not transparent then make sure the IR receiver remains outside because it needs to be in line of sight with the remote.
+Put the ESP32 receiver in any [small enclosure](https://www.amazon.com/dp/B08Z39P7NF/ref=sspa_dk_detail_1?pd_rd_i=B08Z39P7NF&pd_rd_w=vbdxS&content-id=amzn1.sym.386c274b-4bfe-4421-9052-a1a56db557ab&pf_rd_p=386c274b-4bfe-4421-9052-a1a56db557ab&pf_rd_r=2XWD54Y1MXZQG8C050E6&pd_rd_wg=5Gq2i&pd_rd_r=f48551d2-71a4-4ced-aae0-05124cfbcd64&s=hi&sp_csd=d2lkZ2V0TmFtZT1zcF9kZXRhaWxfdGhlbWF0aWM&th=1). If the enclosure is not transparent then make sure the IR receiver remains outside because it needs to be in line of sight with the remote.
 
 ### Remote key stickers
 
 Print [icons.png](./assets/icons.png) image on A4 size paper. Cut the icons and stick them on remote control keys. Use [rubber based glue](https://www.amazon.com/Fevibond-Synthetic-Rubber-Adhesive-Leather/dp/B075MCSRLY/) to keep key membranes flexible.
+
+If you wish to use different icons on the remote keys, then edit `assets/icons.xcf` file in [Gimp image editor](https://www.gimp.org/).

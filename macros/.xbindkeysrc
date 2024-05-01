@@ -1,0 +1,114 @@
+###########################
+# xbindkeys configuration #
+###########################
+#
+# Version: 1.8.7
+#
+# If you edit this file, do not forget to uncomment any lines
+# that you change.
+# The pound(#) symbol may be used anywhere for comments.
+#
+# To specify a key, you can use 'xbindkeys --key' or
+# 'xbindkeys --multikey' and put one of the two lines in this file.
+#
+# The format of a command line is:
+#    "command to start"
+#       associated key
+#
+#
+# A list of keys is in /usr/include/X11/keysym.h and in
+# /usr/include/X11/keysymdef.h
+# The XK_ is not needed.
+#
+# List of modifier:
+#   Release, Control, Shift, Mod1 (Alt), Mod2 (NumLock),
+#   Mod3 (CapsLock), Mod4, Mod5 (Scroll).
+#
+
+# The release modifier is not a standard X modifier, but you can
+# use it if you want to catch release events instead of press events
+
+# By defaults, xbindkeys does not pay attention with the modifiers
+# NumLock, CapsLock and ScrollLock.
+# Uncomment the lines above if you want to pay attention to them.
+
+#keystate_numlock = enable
+#keystate_capslock = enable
+#keystate_scrolllock= enable
+
+# Examples of commands:
+
+"xbindkeys_show" 
+  control+shift + q
+
+# set directly keycode (here control + f with my keyboard)
+#"xterm"
+#  c:41 + m:0x4
+
+# specify a mouse button
+#"xterm"
+#  control + b:2
+
+#"xterm -geom 50x20+20+20"
+#   Shift+Mod2+alt + s
+#
+## set directly keycode (here control+alt+mod2 + f with my keyboard)
+#"xterm"
+#  alt + c:0x29 + m:4 + mod2
+#
+## Control+Shift+a  release event starts rxvt
+#"rxvt"
+#  release+control+shift + a
+#
+## Control + mouse button 2 release event starts rxvt
+#"rxvt"
+#  Control + b:2 + Release
+
+###################################
+# macros for the remote
+###################################
+
+# to reload config after the file modification run following commands:
+#   killall xbindkeys
+#   xbindkeys -f ~/.xbindkeysrc
+
+# open text editor
+"notepadqq"
+  Control+Shift+Mod2 + F1
+
+# shutdown PC immediately
+"shutdown -h now"
+  Control+Shift+Mod2 + F2
+
+# restart PC
+"shutdown -r now"
+  Control+Shift+Mod2 + F3
+
+# initiate taking screenshot using 'flameshot' application with 1 sec delay
+"flameshot gui --delay 1000 &"
+  Control+Shift+Mod2 + F4
+
+# resize and center currently active window when screen resolution is 1920 x 1080
+# coordinates are gravity, x, y, width, and height
+"wmctrl -r :ACTIVE: -e 1,480,270,640,480"
+  Control+Shift+Mod2 + F5
+
+# move mouse to prevent device from sleeping
+"xdotool mousemove $(( $(rand -M 20) + 1000 )) $(( $(rand -M 20) + 500 ))"
+  Control+Shift+Mod2 + F6
+
+# turn off monitor
+"xset dpms force off",
+  Control+Shift+Mod2 + F7
+
+# mute unmute mic with name "LifeCam_HD-5000"
+"pacmd list-sources | grep -P \"card: \\d+ <[^>]*LifeCam_HD-5000[^>]*>\" | awk '{print $2}' | xargs -rn1 -I_ pactl set-source-mute _ toggle"
+  Control+Shift+Mod2 + F8
+
+# set system volume to 40%
+"pactl set-sink-volume 1 40%"
+  Control+Shift+Mod2 + F10
+  
+# set system volume to 85%
+"pactl set-sink-volume 1 85%"
+  Control+Shift+Mod2 + F11

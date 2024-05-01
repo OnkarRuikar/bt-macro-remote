@@ -1,0 +1,43 @@
+#include <Arduino.h>
+#include <IRremote.hpp>
+
+#define IR_RECEIVE_PIN 15 // D15
+
+void setup()
+{
+  IrReceiver.begin(IR_RECEIVE_PIN, ENABLE_LED_FEEDBACK);
+  printActiveIRProtocols(&Serial);
+  Serial.println("device initialized");
+}
+
+void loop()
+{
+  if (IrReceiver.decode())
+  {
+    Serial.println(IrReceiver.decodedIRData.decodedRawData, HEX); // Print raw data
+    IrReceiver.printIRResultShort(&Serial); // Print complete received data in one line
+    IrReceiver.printIRSendUsage(&Serial);   // Print the statement required to send this data
+	}
+}
+
+/*
+Key codes of my remote
+
+1 - 0x45
+2 - 0x46
+3 - 0x47
+4 - 0x44
+5 - 0x40
+6 - 0x43
+7 - 0x7
+8 - 0x15
+9 - 0x9
+* - 0x16
+0 - 0x19
+# - 0xD
+up - 0x18
+down - 0x52
+left - 0x8
+right - 0x5A
+ok - 0x1C
+*/

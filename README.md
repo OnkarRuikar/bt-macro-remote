@@ -2,9 +2,9 @@
 
 The project builds a remote control that can send media key inputs and run macros on computer. This is similar to macro keyboard / macroboard. Instead of keyboard we are going to use a remote control.
 
-The media keys work on any device that accepts bluetooth HIDs. **
+The media keys work on any device that accepts Bluetooth HIDs. **
 
-- Computer (with bluetooth on motherboard or dongle)
+- Computer (with Bluetooth on motherboard or dongle)
 - Smart phones
 - Tablets
 - Smart televisions (TV)
@@ -20,8 +20,9 @@ This is how the final device looks:
 You can buy these from any local electronic components' shop or website:
 
 1. [ESP32 development board](https://www.amazon.com/DORHEA-Development-Bluetooth-ESP-WROOM-32-ESP32-DevKitC-32/dp/B0B18JQF16) - $6
-  ![esp32](assets/ESP32.jpg)\
-Try to get the one with type-c port.
+
+    ![esp32](assets/ESP32.jpg)\
+    Try to get the one with type-c port.
 
     If know how to solder things then you can also get thumb sized mini [ESP32C3 or ESP32S3](https://www.amazon.com/ESP32S3-2-4GHz-Wi-Fi-Dual-core-Supported-Efficiency-Interface/dp/B0BYSB66S5) module.
 
@@ -33,7 +34,7 @@ Try to get the one with type-c port.
 
 ### Optional components
 
-1. [Bluetooth dongle](https://www.amazon.com/Avantree-Bluetooth-Computer-Wireless-Headphones/dp/B08GM1MV6B). If your PC doesn't have bluetooth on motherboard.
+1. [Bluetooth dongle](https://www.amazon.com/Avantree-Bluetooth-Computer-Wireless-Headphones/dp/B08GM1MV6B). If your PC doesn't have Bluetooth on motherboard.
 2. [USB to type-c power cable with button](https://www.amazon.com/VEGET-Raspberry-Switch-Arduino-Devices%EF%BC%883-Pack%EF%BC%89/dp/B07VSC1X2Y). This is to power the device afterwords using PC or smartphone charger. Make sure to buy higher wattage charging cable e.g. 10-15 watt.
 3. If you wish to make things concise and more permanent then you'll have to solder the components. Then you'll need [25 watt soldering kit](https://www.amazon.com/Soldering-Interchangeable-Adjustable-Temperature-Enthusiast/dp/B087767KNW).
 
@@ -125,7 +126,7 @@ The LED that came with the remote module is not required because we are using th
 
 ## 4. Connect to PC
 
-Now power the ESP32 using the type-c power cable with button. You can power it directly using USB charger as well. If your PC has bluetooth on motherboard then enable it. Otherwise use a bluetooth dongle and enable it. Bring up the bluetooth manager and look for a device named "Macro Remote". And connect to the device.
+Now power the ESP32 using the type-c power cable with button. You can power it directly using USB charger as well. If your PC has Bluetooth on motherboard then enable it. Otherwise use a Bluetooth dongle and enable it. Bring up the Bluetooth manager and look for a device named "Macro Remote". And connect to the device.
 
 Play any media on the PC and try the arrow buttons on the remote control.
 

@@ -13,7 +13,7 @@ void setup()
   // uncomment following line and all 'Serial.println' lines
   // Serial.begin(115200);
 
-  // bluetooth connection indicator
+  // Bluetooth connection indicator
   pinMode(2, OUTPUT);
 
   bleKeyboard.begin();

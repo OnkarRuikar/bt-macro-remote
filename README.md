@@ -176,3 +176,8 @@ Put the ESP32 receiver in any [small enclosure](https://www.amazon.com/dp/B08Z39
 Print [icons.png](./assets/icons.png) image on A4 size paper. Cut the icons and stick them on remote control keys. Use [rubber based glue](https://www.amazon.com/Fevibond-Synthetic-Rubber-Adhesive-Leather/dp/B075MCSRLY/) to keep key membranes flexible.
 
 If you wish to use different icons on the remote keys, then edit `assets/icons.xcf` file in [Gimp image editor](https://www.gimp.org/).
+
+## See also
+
+- [ESP-NOW based macropad](https://github.com/OnkarRuikar/esp-now-macropad)
+- [Wi-Fi based macropad](https://github.com/OnkarRuikar/wifi-macroboard)

@@ -1,7 +1,7 @@
 ﻿#Requires AutoHotkey v2.0
 
 ; uncomment following line to debug key presses
-; InstallKeybdHook true
+InstallKeybdHook true
 
 ; run your favorite text editor
 ^+F1::Run "Notepad++"
@@ -22,7 +22,7 @@
 ^+F8::Run "nircmd.exe mutesysvolume 2"
 
 ; set volume to 40%. max volume is 65535
-^+F10::Run "nircmd.exe setvolume 0 26214 26214"
+^+F10::Run "nircmd.exe setvolume 0 6214 6214"
 
 ; set voluem to 85%
 ^+F11::Run "nircmd.exe setvolume 0 55705 55705"
